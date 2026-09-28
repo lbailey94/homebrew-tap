@@ -1,28 +1,28 @@
 class Whitemagic < Formula
   desc "Local-first memory and session continuity for AI agents"
   homepage "https://www.whitemagic.dev"
-  version "9.2.8"
+  version "9.2.9"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-macos-aarch64"
-      sha256 "9270b6d8db611ba1246bb01b6e3fd794b6e670c9a6bf4fd5a8065922ba0f5962"
+      sha256 "72c0fac85b0c1ad47ffd37c8fd9eb651ea268b9660e1b9f03902b6c28aadf6b9"
     end
     on_intel do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-macos-x86_64"
-      sha256 "a70f79b78bda00fce747604b1392ccaacab95fcbf56c4a416ed3fc5481e78765"
+      sha256 "b5a30dc5165eab4edd261429f406d40568f78472cce436a552c64337ced1cd0c"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-linux-aarch64-musl"
-      sha256 "d46e92fc38f55b5cfe05d8baf99993cf70d663d9aa5d8855994c99b0a014e053"
+      sha256 "adb7723dd8d9a13bc98b5889dabfd5ab7588b5a0d6c557575d5316cb0514ca48"
     end
     on_intel do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-linux-x86_64-musl"
-      sha256 "5c20f42cd7a0645b79104a18b08bf8754f5fdaf42b3138951a4e05a9835a2802"
+      sha256 "f03f682af0c3d187408b9dddb6464601ee63a13fe88aefa922df7da07c6def8b"
     end
   end
 
@@ -34,8 +34,9 @@ class Whitemagic < Formula
 
   def caveats
     <<~EOS
-      The Linux x86-64/arm64 lines are install-gated; macOS binaries are
-      published but not install-gated. Docs: https://www.whitemagic.dev/whitemagic
+      The Linux x86-64/arm64 and macOS arm64 lines are install-gated;
+      macOS x86_64 is published with the same checksum verification.
+      Docs: https://www.whitemagic.dev/whitemagic
     EOS
   end
 
