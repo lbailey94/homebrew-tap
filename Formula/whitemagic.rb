@@ -1,28 +1,28 @@
 class Whitemagic < Formula
   desc "Local-first memory and session continuity for AI agents"
   homepage "https://www.whitemagic.dev"
-  version "9.2.9"
+  version "9.3.4"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-macos-aarch64"
-      sha256 "72c0fac85b0c1ad47ffd37c8fd9eb651ea268b9660e1b9f03902b6c28aadf6b9"
+      sha256 "01b3e23fc503ce0dffce0df14c7c1f1f8725ba8a9bf22aa9ce5666497be33156"
     end
     on_intel do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-macos-x86_64"
-      sha256 "b5a30dc5165eab4edd261429f406d40568f78472cce436a552c64337ced1cd0c"
+      sha256 "74e5351133c27a8948cd65f00ba8e7a5da47da48ef039f879ff72451e812aeec"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-linux-aarch64-musl"
-      sha256 "adb7723dd8d9a13bc98b5889dabfd5ab7588b5a0d6c557575d5316cb0514ca48"
+      sha256 "2ecd7679b3ee16b7166512cd5f56103d588bddf28c5117db5dc6a8a01f6b8847"
     end
     on_intel do
       url "https://github.com/lbailey94/whitemagic/releases/download/v#{version}/wm-linux-x86_64-musl"
-      sha256 "f03f682af0c3d187408b9dddb6464601ee63a13fe88aefa922df7da07c6def8b"
+      sha256 "180e2912ef35a12975fc390040e11afcda671b9f576609a048bbc6c30491c07c"
     end
   end
 
