@@ -34,9 +34,9 @@ class Whitemagic < Formula
 
   def caveats
     <<~EOS
-      The Linux x86-64/arm64 and macOS arm64 lines are install-gated;
-      macOS x86_64 is published with the same checksum verification.
-      Docs: https://www.whitemagic.dev/whitemagic
+      Stable release evidence includes Linux x86-64/arm64 and macOS arm64 install gates;
+      tap-specific platform smoke jobs remain separate; macOS x86_64 is not install-qualified.
+      Docs: https://www.whitemagic.dev/install
     EOS
   end
 

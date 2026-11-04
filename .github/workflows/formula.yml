@@ -1,0 +1,37 @@
+name: Stable formula
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ruby -c Formula/whitemagic.rb
+      - run: bash test/check-release.sh
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15, macos-15-intel]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Homebrew/actions/setup-homebrew@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install and check exact stable formula
+        run: |
+          brew tap lbailey94/tap "$GITHUB_WORKSPACE"
+          brew audit --formula lbailey94/tap/whitemagic
+          brew install lbailey94/tap/whitemagic
+          brew test lbailey94/tap/whitemagic
+          node test/mcp-smoke.mjs "$(brew --prefix)/bin/wm" serve --profile curated
+      - name: Uninstall package
+        if: always()
+        run: brew uninstall whitemagic
