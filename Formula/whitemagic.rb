@@ -33,8 +33,8 @@ class Whitemagic < Formula
 
   def caveats
     <<~EOS
-      Stable release evidence includes Linux x86-64/arm64 and macOS arm64 install gates;
-      tap-specific platform smoke jobs remain separate; macOS x86_64 is not install-qualified.
+      Stable 9.3.4 tap install and MCP restart controls passed on 2026-11-04:
+      Linux x86-64/arm64 and macOS 26 Intel/arm64. Scope is the tested runner images.
       Docs: https://www.whitemagic.dev/install
     EOS
   end
