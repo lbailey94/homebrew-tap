@@ -27,7 +27,8 @@ jobs:
           node-version: '22'
       - name: Install and check exact stable formula
         run: |
-          brew tap lbailey94/tap "$GITHUB_WORKSPACE"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(cd "$(brew --repo lbailey94/tap)" && pwd -P)" = "$(pwd -P)"
           brew audit --formula lbailey94/tap/whitemagic
           brew install lbailey94/tap/whitemagic
           brew test lbailey94/tap/whitemagic
