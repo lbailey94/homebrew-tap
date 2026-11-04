@@ -1,0 +1,44 @@
+name: Stable formula
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: stable-formula-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ruby -c Formula/whitemagic.rb
+      - run: bash test/check-release.sh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-26, macos-26-intel]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Homebrew/actions/setup-homebrew@55301c8cac0982bc2fbeb71275fa0b71b963bdb1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install and check exact stable formula
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(cd "$(brew --repo lbailey94/tap)" && pwd -P)" = "$(pwd -P)"
+          brew audit --formula lbailey94/tap/whitemagic
+          brew install lbailey94/tap/whitemagic
+          brew test lbailey94/tap/whitemagic
+          node test/mcp-smoke.mjs "$(brew --prefix)/bin/wm" serve --profile curated
+      - name: Uninstall package
+        if: always()
+        run: brew uninstall whitemagic
